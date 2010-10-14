@@ -114,6 +114,8 @@ let g:pdv_cfg_php4guess = 1
 " the identifiers having an _ in the first place.
 let g:pdv_cfg_php4guessval = "protected"
 
+" Wether to hide empty docblock tags
+let g:pdv_cfg_hide = 1
 "
 " Regular expressions 
 " 
@@ -461,11 +463,21 @@ func! PhpDocClass()
 	if l:final != ""
         exe l:txtBOL . g:pdv_cfg_Commentn . "@final" . g:pdv_cfg_EOL
     endif
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@package " . g:pdv_cfg_Package . g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@version " . g:pdv_cfg_Version . g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@copyright " . g:pdv_cfg_Copyright . g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@author " . g:pdv_cfg_Author g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@license " . g:pdv_cfg_License . g:pdv_cfg_EOL
+  if g:pdv_cfg_Package != "" && g:pdv_cfg_hide == 1
+    exe l:txtBOL . g:pdv_cfg_Commentn . "@package " . g:pdv_cfg_Package . g:pdv_cfg_EOL
+  endif
+  if g:pdv_cfg_Version != "" && g:pdv_cfg_hide == 1
+    exe l:txtBOL . g:pdv_cfg_Commentn . "@version " . g:pdv_cfg_Version . g:pdv_cfg_EOL
+  endif
+  if g:pdv_cfg_Copyright != "" && g:pdv_cfg_hide == 1
+    exe l:txtBOL . g:pdv_cfg_Commentn . "@copyright " . g:pdv_cfg_Copyright . g:pdv_cfg_EOL
+  endif
+  if g:pdv_cfg_Author != "" && g:pdv_cfg_hide == 1
+    exe l:txtBOL . g:pdv_cfg_Commentn . "@author " . g:pdv_cfg_Author g:pdv_cfg_EOL
+  endif
+  if g:pdv_cfg_License != "" && g:pdv_cfg_hide == 1
+    exe l:txtBOL . g:pdv_cfg_Commentn . "@license " . g:pdv_cfg_License . g:pdv_cfg_EOL
+  endif
 
 	" Close the comment block.
 	exe l:txtBOL . g:pdv_cfg_CommentTail . g:pdv_cfg_EOL
